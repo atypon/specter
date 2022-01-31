@@ -315,8 +315,8 @@ class Specter(pl.LightningModule):
         logger.info(f'loading model from checkpoint: {checkpoint_path}')
 
         self.hparams = init_args
-        self.model = AutoModel.from_pretrained("allenai/scibert_scivocab_cased")
-        self.tokenizer = AutoTokenizer.from_pretrained("allenai/scibert_scivocab_cased")
+        self.model = AutoModel.from_pretrained("sentence-transformers/bert-base-nli-mean-tokens")
+        self.tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/bert-base-nli-mean-tokens")
         self.tokenizer.model_max_length = self.model.config.max_position_embeddings
         self.hparams.seqlen = self.model.config.max_position_embeddings
         self.triple_loss = TripletLoss()
