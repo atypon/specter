@@ -175,15 +175,16 @@ class IterableDataSetMultiWorker(IterableDataset):
         """
         source_tokens = data_instance["source_title"].tokens
         source_title = tokenizer(' '.join([str(token) for token in source_tokens]),
-                                 truncation=True, padding="max_length", return_tensors="pt",
+                                 truncation=True, padding="max_length", return_tensors="pt", return_token_type_ids=True,
                                  max_length=512)
+
         source_input = {'input_ids': source_title['input_ids'][0],
                         'token_type_ids': source_title['token_type_ids'][0],
                         'attention_mask': source_title['attention_mask'][0]}
 
         pos_tokens = data_instance["pos_title"].tokens
         pos_title = tokenizer(' '.join([str(token) for token in pos_tokens]),
-                              truncation=True, padding="max_length", return_tensors="pt", max_length=512)
+                              truncation=True, padding="max_length", return_token_type_ids=True, return_tensors="pt", max_length=512)
 
         pos_input = {'input_ids': pos_title['input_ids'][0],
                      'token_type_ids': pos_title['token_type_ids'][0],
@@ -191,7 +192,7 @@ class IterableDataSetMultiWorker(IterableDataset):
 
         neg_tokens = data_instance["neg_title"].tokens
         neg_title = tokenizer(' '.join([str(token) for token in neg_tokens]),
-                              truncation=True, padding="max_length", return_tensors="pt", max_length=512)
+                              truncation=True, padding="max_length", return_token_type_ids=True, return_tensors="pt", max_length=512)
 
         neg_input = {'input_ids': neg_title['input_ids'][0],
                      'token_type_ids': neg_title['token_type_ids'][0],
