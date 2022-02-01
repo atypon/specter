@@ -251,9 +251,19 @@ class IterableDataSetMultiWorkerTestStep(IterableDataset):
 
 
 if __name__ == '__main__':
-	tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-mpnet-base-v2")
-	train_dataset = IterableDataSetMultiWorker(file_path='data/train.pkl', tokenizer=tokenizer, size=512)
-	for train_instance in train_dataset:
-		print(train_instance)
-		break
-	val_dataset = IterableDataSetMultiWorker(file_path='data/val.pkl', tokenizer=tokenizer, size=512)
+#	tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-mpnet-base-v2")
+	train_dataset = DataReaderFromPickled() #IterableDataSetMultiWorker(file_path='data/train.pkl', tokenizer=tokenizer, size=512)
+	index = 0
+	with open('data/val.tsv', 'w') as train_file:
+		for train_instance in train_dataset._read('data/val.pkl'):
+			train_instance_source = train_instance['source_title'].tokens
+			train_instance_source = ' '.join([str(token) for token in train_instance_source])
+			train_instance_pos = train_instance['pos_title'].tokens
+			train_instance_neg = train_instance['neg_title'].tokens
+			train_instance_neg = " ".join([str(token) for token in train_instance_neg])
+			train_instance_pos = " ".join([str(token) for token in train_instance_pos])
+			index +=1
+			print(index)
+			train_file.write(train_instance_source + '\t' + train_instance_pos + '\t' + train_instance_neg + '\n')
+		#print(train_instance_source, train_instance_neg, train_instance_pos)
+
