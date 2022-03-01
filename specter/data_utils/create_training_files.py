@@ -45,7 +45,7 @@ def init_logger(*, fn=None):
 
 bert_params = {
     "do_lowercase": "true",
-    "pretrained_model": "data/scivocab_scivocab_uncased/vocab.txt",
+    "pretrained_model": "s2data/mpnet/vocab.txt",
     "use_starting_offsets": "true"
 }
 
@@ -499,7 +499,7 @@ if __name__ == '__main__':
     ap.add_argument('--margin_fraction', default=0.5, type=float)
     ap.add_argument('--comment', default='', type=str)
     ap.add_argument('--data_files', help='space delimted list of data files to override default', default=None)
-    ap.add_argument('--bert_vocab', help='path to bert vocab', default='data/scibert_scivocab_uncased/vocab.txt')
+    ap.add_argument('--bert_vocab', help='path to bert vocab', default='s2data/mpnet/vocab.txt')
     ap.add_argument('--concat-title-abstract', action='store_true', default=False)
     ap.add_argument('--included-text-fields', default='title abstract', help='space delimieted list of fields to include in the main text field'
                                                                              'possible values: `title`, `abstract`, `authors`')
